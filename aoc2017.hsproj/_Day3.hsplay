@@ -1,2 +1,7 @@
 -- Haskell Playground 1.0
 stepsToHome 312051
+
+calculateValuePoint valuePoints (Point 0 1)
+
+
+part2 312051
