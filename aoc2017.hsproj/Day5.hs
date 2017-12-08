@@ -10,7 +10,8 @@ jump index jumps numbers =
   then jumps
   else
     let offset = S.index numbers index
-        newNumbers = S.update index (succ offset) numbers
+        newOffset = if offset >= 3 then pred offset else succ offset
+        newNumbers = S.update index newOffset numbers
         nextIndex = index + offset
     in jump nextIndex (succ jumps) newNumbers
     
