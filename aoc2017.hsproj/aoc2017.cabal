@@ -18,5 +18,6 @@ Executable aoc2017
   other-modules:
       Day5
       Day4
+      Day6
       Day2
       Day3
