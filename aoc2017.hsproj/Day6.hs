@@ -2,6 +2,8 @@ module Day6 where
   
 import qualified Data.Sequence as S (Seq, fromList, length, update, index, foldlWithIndex, adjust)
 
+import Data.List (elemIndex)
+
 type Memory = S.Seq Int
 
 clearBankWithMostBlocks :: Memory -> (Memory, Int, Int)
@@ -32,3 +34,18 @@ reallocate dumps memory =
     if loopDetected dumps newMemory
     then succ $ length dumps
     else reallocate (newMemory:dumps) newMemory
+    
+loopLength :: [Memory] -> Memory -> Int
+loopLength dumps memory = 
+  let (clearedBank, index, value) = clearBankWithMostBlocks memory
+      newMemory = distributeBlocks clearedBank value $ nextBank index memory
+  in 
+    if loopDetected dumps newMemory
+    then 
+      let previousLocation = elemIndex newMemory dumps
+      in case previousLocation of
+        Just ind -> succ ind
+        Nothing -> 0
+          
+    else loopLength (newMemory:dumps) newMemory
+    
